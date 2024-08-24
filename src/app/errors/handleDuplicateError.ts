@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { TErrorSources, TGenericErrorResponse } from "../interface/error";
+import httpStatus from "http-status";
+import { TErrorSources, TGenericErrorResponse } from "../types/error";
 
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
-  const statusCode = 400;
+  const statusCode = httpStatus.BAD_REQUEST;
 
   const [errorValue] = Object.values(err.keyValue);
 

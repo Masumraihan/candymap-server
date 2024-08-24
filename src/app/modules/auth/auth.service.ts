@@ -6,17 +6,34 @@ import AppError from "../../errors/AppError";
 import UserModel from "../user/user.model";
 import { TLoginUser, TRegister } from "./auth.interface";
 import { createToken, verifyToken } from "./auth.utils";
+import { USER_ROLE } from "../user/user.constant";
 
 const registerUser = async (payload: TRegister) => {
-  const user = await UserModel.create(payload);
-  return user;
+  console.log(payload);
+  const registerPayload = {
+    ...payload,
+    role: USER_ROLE.candyGiver,
+  };
+  const user = await UserModel.create(registerPayload);
+  const accessToken = createToken(
+    { email: user.email, role: user.role },
+    config.jwt_access_secret as string,
+    config.access_token_expire_in as string,
+  );
+  const refreshToken = createToken(
+    { email: user.email, role: user.role },
+    config.jwt_refresh_secret as string,
+    config.refresh_token_expire_in as string,
+  );
+
+  return { accessToken, refreshToken };
 };
 
 const loginUser = async (payload: TLoginUser) => {
   // find user exists or not
   const user = await UserModel.findOne({
     email: payload.email,
-  });
+  }).select("+password");
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "Incorrect email");
   }

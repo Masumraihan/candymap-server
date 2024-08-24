@@ -28,7 +28,6 @@ UserSchema.pre("save", async function (next) {
 
   // hashing password
   user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds));
-
   next();
 });
 
@@ -42,6 +41,7 @@ UserSchema.statics.isPasswordMatched = async function (
   plainTextPassword: string,
   hastPassword: string,
 ) {
+  console.log({ plainTextPassword, hastPassword });
   return await bcrypt.compare(plainTextPassword, hastPassword);
 };
 

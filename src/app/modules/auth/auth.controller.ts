@@ -8,11 +8,21 @@ import { AuthServices } from "./auth.service";
 
 const userRegister = catchAsync(async (req, res) => {
   const result = await AuthServices.registerUser(req.body);
+  const { refreshToken, accessToken } = result;
+  res.cookie("refreshToken", refreshToken, {
+    secure: config.NODE_ENV === "production",
+    httpOnly: true,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    sameSite: "none",
+  });
+
   sendResponse(res, {
-    statusCode: httpStatus.CREATED,
+    statusCode: httpStatus.OK,
     success: true,
     message: "User register successfully",
-    data: result,
+    data: {
+      accessToken,
+    },
   });
 });
 
