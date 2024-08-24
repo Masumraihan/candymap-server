@@ -3,9 +3,8 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.services";
 
-const createStudent = catchAsync(async (req, res) => {
-  const { password, student: studentData } = req.body;
-  const result = await UserServices.createStudentIntoDB(req.file, password, studentData);
+const createParent = catchAsync(async (req, res) => {
+  const result = await UserServices.createParentIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -14,52 +13,6 @@ const createStudent = catchAsync(async (req, res) => {
   });
 });
 
-const createFaculty = catchAsync(async (req, res) => {
-  const { password, faculty: facultyData } = req.body;
-  const result = await UserServices.createFacultyIntoDb(req.file, password, facultyData);
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: "Faculty Created Successfully",
-    data: result,
-  });
-});
-
-const createAdmin = catchAsync(async (req, res) => {
-  const { password, admin: adminData } = req.body;
-  const result = await UserServices.createAdminIntoDb(req.file, password, adminData);
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: "Admin Created Successfully",
-    data: result,
-  });
-});
-const getMe = catchAsync(async (req, res) => {
-  const { id, role } = req.user;
-
-  const result = await UserServices.getMe(id, role);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User retrieve successfully",
-    data: result,
-  });
-});
-const changeStatus = catchAsync(async (req, res) => {
-  const result = await UserServices.changeStatus(req.params.id, req.body);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Status update successfully",
-    data: result,
-  });
-});
-
 export const UserController = {
-  createStudent,
-  createFaculty,
-  createAdmin,
-  getMe,
-  changeStatus,
+  createParent,
 };

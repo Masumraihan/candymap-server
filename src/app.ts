@@ -10,7 +10,7 @@ const app: Application = express();
 // parser
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
+app.use(cors({ origin: ["*"], credentials: true }));
 
 app.get("/", async (req: Request, res: Response) => {
   res.send({ message: "Server is Running" });
@@ -19,6 +19,7 @@ app.get("/", async (req: Request, res: Response) => {
 // routes
 app.use("/api", router);
 
+// global error handler
 app.use(globalErrorHandler);
 
 // not found handler

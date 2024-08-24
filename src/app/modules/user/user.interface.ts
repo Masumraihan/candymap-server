@@ -1,5 +1,6 @@
 import { Model } from "mongoose";
 import { USER_ROLE } from "./user.constant";
+import { JwtPayload } from "jsonwebtoken";
 
 export type TUser = {
   name: string;
@@ -14,3 +15,4 @@ export interface UserStaticModel extends Model<TUser> {
 }
 
 export type TUserRole = keyof typeof USER_ROLE;
+
