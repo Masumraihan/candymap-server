@@ -5,7 +5,7 @@ import { USER_ROLE } from "../user/user.constant";
 
 const router = Router();
 
-router.get("/", LocationControllers.getLocation);
-router.post("/", auth(USER_ROLE.candyGiver), LocationControllers.createLocation);
+router.get("/get-locations", LocationControllers.getLocation);
+router.post("/add-location", auth(USER_ROLE.candyGiver), LocationControllers.createLocation);
 
 export const LocationRoutes = router;

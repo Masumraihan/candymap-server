@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 export type TLocation = {
-  userId: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId;
   latitude?: string;
   longitude?: string;
   address: string;

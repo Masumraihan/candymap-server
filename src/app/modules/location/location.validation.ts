@@ -2,9 +2,6 @@ import { z } from "zod";
 
 const createLocationValidationSchema = z.object({
   body: z.object({
-    userId: z.string({
-      required_error: "User Id is required",
-    }),
     latitude: z.string().optional(),
     longitude: z.string().optional(),
     address: z.string({

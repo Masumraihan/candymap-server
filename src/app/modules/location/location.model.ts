@@ -3,9 +3,10 @@ import { TLocation } from "./location.interface";
 
 export const LocationSchema = new Schema<TLocation>(
   {
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      unique: true,
     },
     latitude: {
       type: String,
