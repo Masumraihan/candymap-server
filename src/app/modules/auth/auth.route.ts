@@ -17,7 +17,7 @@ router.post(
   validateRequest(AuthValidations.loginValidationSchema),
   AuthControllers.userLogin,
 );
-router.post(
+router.patch(
   "/change-password",
   auth(USER_ROLE.admin, USER_ROLE.candyGiver, USER_ROLE.parent),
   validateRequest(AuthValidations.changePasswordValidationSchema),

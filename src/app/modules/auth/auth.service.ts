@@ -7,9 +7,9 @@ import UserModel from "../user/user.model";
 import { TLoginUser, TRegister } from "./auth.interface";
 import { createToken, verifyToken } from "./auth.utils";
 import { USER_ROLE } from "../user/user.constant";
+import { TTokenUser } from "../../types/common";
 
 const registerUser = async (payload: TRegister) => {
-  console.log(payload);
   const registerPayload = {
     ...payload,
     role: USER_ROLE.candyGiver,
@@ -59,17 +59,17 @@ const loginUser = async (payload: TLoginUser) => {
 
 // UPDATE PASSWORD
 const changedPassword = async (
-  userData: JwtPayload,
+  userData: TTokenUser,
   payload: { oldPassword: string; newPassword: string },
 ) => {
   // find user exists or not
-  const user = await UserModel.findOne({ email: userData.email });
+  const user = await UserModel.findOne({ email: userData.email }).select("+password");
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "Incorrect email");
   }
   // check password
   if (!(await UserModel.isPasswordMatched(payload.oldPassword, user?.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, "Incorrect password");
+    throw new AppError(httpStatus.FORBIDDEN, "Incorrect old password ");
   }
 
   // hashed password before updating database
@@ -94,7 +94,6 @@ const refreshToken = async (token: string) => {
 
   // VERIFY TOKEN
   const decoded = verifyToken(token, config.jwt_refresh_secret as string);
-
   const { role, email } = decoded;
 
   const user = await UserModel.findOne({

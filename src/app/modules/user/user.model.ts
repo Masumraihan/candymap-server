@@ -41,7 +41,6 @@ UserSchema.statics.isPasswordMatched = async function (
   plainTextPassword: string,
   hastPassword: string,
 ) {
-  console.log({ plainTextPassword, hastPassword });
   return await bcrypt.compare(plainTextPassword, hastPassword);
 };
 

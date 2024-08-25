@@ -17,8 +17,22 @@ const createParentValidationSchema = z.object({
   }),
 });
 
+const updateProfileValidationSchema = z.object({
+  body: z
+    .object({
+      name: z.string(),
+      email: z.string().email({ message: "Invalid email address" }),
+      address: z.string(),
+      latitude: z.string(),
+      longitude: z.string(),
+      locationUrl: z.string(),
+    })
+    .partial(),
+});
+
 export const userValidations = {
   createParentValidationSchema,
+  updateProfileValidationSchema,
 };
 
 export default createParentValidationSchema;
