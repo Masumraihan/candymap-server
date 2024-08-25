@@ -55,10 +55,16 @@ Ensure that you have the following tools installed on your machine:
    yarn start (for production)
    ```
 
+## Admin Credentials
+
+- Email: admin@gmail.com
+- Password: 123456
+
 ## API Documentation
 
 - [Swagger](https://app.swaggerhub.com/apis/MDABIDMAHMUDJISAN_1/candymap/1.0.0)
 - [Postman](https://documenter.getpostman.com/view/24929762/2sAXjF9Eqc)
+- [ER Diagram](https://drive.google.com/file/d/1fqEvRfN0bhRBl_j3Y0ZILgQTXgN-ouzh/view?usp=sharing)
 
 ## Project Analysis
 
