@@ -10,10 +10,7 @@ const createParentValidationSchema = z.object({
         required_error: "Email is required",
       })
       .email({ message: "Invalid email address" }),
-    creator: z.string({
-      invalid_type_error: "Creator must be string",
-      required_error: "Creator Id is required",
-    }),
+    password: z.string().min(6, "Password must be at least 6 characters").optional(),
   }),
 });
 
@@ -22,10 +19,14 @@ const updateProfileValidationSchema = z.object({
     .object({
       name: z.string(),
       email: z.string().email({ message: "Invalid email address" }),
-      address: z.string(),
-      latitude: z.string(),
-      longitude: z.string(),
-      locationUrl: z.string(),
+      location: z
+        .object({
+          address: z.string(),
+          latitude: z.string(),
+          longitude: z.string(),
+          locationUrl: z.string(),
+        })
+        .partial(),
     })
     .partial(),
 });

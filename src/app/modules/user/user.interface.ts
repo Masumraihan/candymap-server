@@ -1,6 +1,5 @@
 import { Model } from "mongoose";
 import { USER_ROLE } from "./user.constant";
-import { JwtPayload } from "jsonwebtoken";
 
 export type TUser = {
   name: string;

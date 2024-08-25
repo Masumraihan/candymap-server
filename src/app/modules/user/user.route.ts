@@ -14,6 +14,7 @@ router.get(
 );
 router.post(
   "/create-parent",
+  auth(USER_ROLE.admin, USER_ROLE.candyGiver),
   validateRequest(userValidations.createParentValidationSchema),
   UserController.createParent,
 );

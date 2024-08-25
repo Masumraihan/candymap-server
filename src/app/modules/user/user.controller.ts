@@ -5,7 +5,8 @@ import { UserServices } from "./user.services";
 import { CustomRequest, TTokenUser } from "../../types/common";
 
 const createParent = catchAsync(async (req, res) => {
-  const result = await UserServices.createParentIntoDB(req.body);
+  const user = (req as CustomRequest).user as TTokenUser;
+  const result = await UserServices.createParentIntoDB(user, req.body);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
