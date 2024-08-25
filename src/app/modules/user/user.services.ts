@@ -1,18 +1,17 @@
-import bcrypt from "bcrypt";
+import fs from "fs";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
-import AppError from "../../errors/AppError";
+import path from "path";
 import { v4 as uuid } from "uuid";
+import config from "../../config";
+import AppError from "../../errors/AppError";
 import { TTokenUser } from "../../types/common";
+import { sendMail } from "../../utils/sendMail";
 import { TLocation } from "../location/location.interface";
 import LocationModel from "../location/location.model";
+import { USER_ROLE } from "./user.constant";
 import { TUser } from "./user.interface";
 import UserModel from "./user.model";
-import config from "../../config";
-import { USER_ROLE } from "./user.constant";
-import path from "path";
-import fs from "fs";
-import { sendMail } from "../../utils/sendMail";
 
 const createParentIntoDB = async (
   user: TTokenUser,
